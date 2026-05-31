@@ -1,0 +1,15 @@
+# Core dependencies for the sketch->3D pipeline.
+# Install with:   pip install -r requirements.txt
+#
+# A CUDA GPU is optional. With a GPU, install the CUDA build of torch from
+# https://pytorch.org ; otherwise the default CPU build works (just slower).
+# Developed/tested with: torch 2.5.1, transformers 4.57.1, opencv 4.12,
+# Python 3.9 (any Python >= 3.9 should work).
+
+torch>=2.0
+torchvision>=0.15
+transformers>=4.40      # provides the Depth Anything V2 model
+opencv-python>=4.5
+numpy
+pillow
+matplotlib              # only used by the report figure scripts

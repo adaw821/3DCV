@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sketch &rarr; 3D Viewer</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; background: #0d0f12; color: #e8e8e8;
+      font-family: -apple-system, "Segoe UI", Roboto, sans-serif; overflow: hidden; }
+    #app { display: flex; height: 100%; }
+    #canvas-wrap { flex: 1; position: relative; }
+    canvas { display: block; }
+    #panel { width: 290px; background: #15181d; padding: 18px 18px 24px;
+      border-left: 1px solid #2a2f37; overflow-y: auto; }
+    h1 { font-size: 17px; margin: 0 0 4px; }
+    .sub { font-size: 12px; color: #8b93a1; margin-bottom: 18px; line-height: 1.4; }
+    label { display: block; font-size: 12px; color: #9aa3b2; margin: 16px 0 6px; }
+    select, input[type=range] { width: 100%; }
+    select { background: #0d0f12; color: #e8e8e8; border: 1px solid #2a2f37;
+      border-radius: 6px; padding: 7px; font-size: 13px; }
+    .row { display: flex; align-items: center; gap: 8px; }
+    .val { font-size: 12px; color: #6fb3ff; min-width: 38px; text-align: right; }
+    .check { display: flex; align-items: center; gap: 8px; margin-top: 14px; font-size: 13px; }
+    .badge { display:inline-block; font-size:11px; background:#23303f; color:#6fb3ff;
+      padding:2px 8px; border-radius:10px; margin-top:10px; }
+    #hint { position: absolute; left: 14px; bottom: 12px; font-size: 12px;
+      color: #6b7280; background: rgba(0,0,0,.4); padding: 6px 10px; border-radius: 6px; }
+    #err { position:absolute; top:14px; left:14px; right:14px; background:#3a1d1d;
+      color:#ffb4b4; padding:10px 12px; border-radius:8px; font-size:13px; display:none; }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div id="canvas-wrap">
+      <div id="err"></div>
+      <div id="hint">Drag to rotate &middot; scroll to zoom &middot; right-drag to pan</div>
+    </div>
+    <div id="panel">
+      <h1>Sketch &rarr; 3D</h1>
+      <div class="sub">Interactive reconstruction from a 2D sketch.
+        Depth from Depth&nbsp;Anything&nbsp;V2; multi-sketch results are depth-fused.</div>
+
+      <label>Sample</label>
+      <select id="sample"></select>
+      <span class="badge" id="meta">&nbsp;</span>
+
+      <label>Depth scale</label>
+      <div class="row">
+        <input type="range" id="zscale" min="0" max="120" value="45" />
+        <span class="val" id="zval">45</span>
+      </div>
+
+      <label>Surface detail (segments)</label>
+      <div class="row">
+        <input type="range" id="seg" min="60" max="300" value="180" step="10" />
+        <span class="val" id="segval">180</span>
+      </div>
+
+      <div class="check"><input type="checkbox" id="wire" /> <span>Wireframe</span></div>
+      <div class="check"><input type="checkbox" id="spin" /> <span>Auto-rotate</span></div>
+      <div class="check"><input type="checkbox" id="tex" checked /> <span>Show sketch texture</span></div>
+    </div>
+  </div>
+
+  <script type="importmap">
+    { "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    } }
+  </script>
+  <script type="module" src="viewer.js"></script>
+</body>
+</html>
