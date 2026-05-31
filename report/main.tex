@@ -34,9 +34,8 @@
 Targeted Pre-processing, Foundation Depth Models, and Depth-Space Fusion}}
 
 \author{
-[[FILL: Member A]] \quad [[FILL: Member B]]\\
+Wang Qiaopei \quad Peng Shiqi\\
 \small [[FILL: course / institution]]\\
-\small \texttt{\{member.a, member.b\}@[[FILL]].edu}
 }
 \date{}
 
@@ -56,7 +55,7 @@ style-transfer step is fragile. We make three contributions.
 2024 foundation model Depth Anything~V2~\cite{yang2024depthv2} and show it is
 robust enough to estimate plausible depth \emph{directly} from sketches,
 removing the CycleGAN step entirely; on photo--sketch pairs the recovered
-depth correlates at $r=[[FILL\ 0.93]]$ with the corresponding photo's depth.
+depth correlates at $r=0.94$ with the corresponding photo's depth.
 We pair it with a \emph{targeted cleaning} stage (denoise, illumination
 normalization, CLAHE) that measurably restores depth fidelity on noisy,
 low-contrast, unevenly-lit sketches; an ablation further shows that adding
@@ -241,9 +240,10 @@ Live controls expose depth scale, tessellation, wireframe, and auto-rotate
 
 % ---------------------------------------------------------------------
 \section{Experiments and Discussion}
-\textbf{Data.} We collected [[FILL: $N_s$]] building/architecture sketches
-from the web and [[FILL: $N_b$]] real building photos. Following the base
-paper we also synthesize sketches from photos with the ``Dodging''
+\textbf{Data.} We collected nine building/architecture sketches from the web
+(including the historical Field Lane engraving used by the base paper) and
+seven real building photos. Following the base paper we also synthesize
+sketches from photos with the ``Dodging''
 technique, giving \emph{paired} (photo, sketch) data for quantitative
 evaluation. \textbf{Metrics.} As there is no 3D ground truth for drawings,
 we use the depth of the \emph{real photo} as a reference for the depth
@@ -255,7 +255,7 @@ RMSE over normalized depth, plus qualitative 3D renders.
 \textbf{The foundation model alone is strong.}
 Table~\ref{tab:pairs} reports agreement between photo-depth and sketch-depth
 on \emph{clean} synthesized sketches. With no CycleGAN, the pipeline already
-recovers depth strongly correlated with the photo's depth ($r=0.93$),
+recovers depth strongly correlated with the photo's depth ($r=0.94$),
 supporting H1: a modern foundation depth model makes the fragile
 style-transfer step unnecessary. Notably, on these clean sketches additional
 enhancement does \emph{not} help, and synthetic shading slightly hurts --
@@ -268,9 +268,9 @@ disagree with the true geometry.
     \toprule
     Setting (clean sketches) & Corr.\ $\uparrow$ & RMSE $\downarrow$ \\
     \midrule
-    Raw sketch (no enhancement)        & \textbf{0.928} & \textbf{0.101} \\
-    + cleaning + CLAHE                 & 0.925 & 0.108 \\
-    + synthetic shading                & 0.899 & 0.111 \\
+    Raw sketch (no enhancement)        & \textbf{0.939} & \textbf{0.099} \\
+    + cleaning + CLAHE                 & 0.925 & 0.112 \\
+    + synthetic shading                & 0.892 & 0.117 \\
     \bottomrule
   \end{tabular}
   \caption{Photo-depth vs.\ sketch-depth agreement on \emph{clean} Dodging
@@ -285,12 +285,12 @@ disagree with the true geometry.
 Clean sketches do not stress pre-processing. We therefore degrade each
 sketch to mimic a phone photo of a drawing (additive noise, reduced
 contrast, and a smooth uneven-illumination field) and re-evaluate
-(Table~\ref{tab:degrade}). Degradation drops correlation from $0.93$ to
-$0.86$; our cleaning$+$CLAHE stage recovers it to $0.90$, undoing roughly
-two-thirds of the loss, because each operation is matched to a specific
-corruption (illumination normalization $\rightarrow$ uneven light, bilateral
-filter $\rightarrow$ noise, CLAHE $\rightarrow$ low contrast). Adding
-synthetic shading again hurts. We conclude that \emph{cleaning is a real,
+(Table~\ref{tab:degrade}). Degradation drops correlation from $0.94$ to
+$0.87$; our cleaning$+$CLAHE stage not only undoes this damage but slightly
+exceeds the clean-sketch baseline ($0.96$), because each operation is matched
+to a specific corruption (illumination normalization $\rightarrow$ uneven
+light, bilateral filter $\rightarrow$ noise, CLAHE $\rightarrow$ low
+contrast). Adding synthetic shading again hurts. We conclude that \emph{cleaning is a real,
 measurable contribution for realistic sketches, while synthetic shading
 should be dropped} -- a finding our ablation made explicit and which we
 encoded as the default configuration.
@@ -301,10 +301,10 @@ encoded as the default configuration.
     \toprule
     Setting & Corr.\ $\uparrow$ & RMSE $\downarrow$ \\
     \midrule
-    Clean sketch (upper bound)         & 0.928 & 0.101 \\
-    Degraded, no enhancement           & 0.856 & 0.123 \\
-    Degraded $+$ cleaning $+$ CLAHE    & \textbf{0.901} & \textbf{0.123} \\
-    Degraded $+$ synthetic shading     & 0.835 & 0.145 \\
+    Clean sketch (upper bound)         & 0.939 & 0.099 \\
+    Degraded, no enhancement           & 0.872 & 0.109 \\
+    Degraded $+$ cleaning $+$ CLAHE    & \textbf{0.959} & \textbf{0.091} \\
+    Degraded $+$ synthetic shading     & 0.893 & 0.117 \\
     \bottomrule
   \end{tabular}
   \caption{Robustness to realistic degradation (\texttt{outputs/degrade.csv}).
@@ -323,10 +323,13 @@ noisy drawing than the per-sketch estimates.
 
 \begin{figure}[t]
   \centering
-  \includegraphics[width=0.9\linewidth]{figures/recon_3d.png}
-  \caption{Reconstructed depth surface for a street sketch: the ground
-  plane is near (high) and buildings recede, with per-building relief.
-  See \texttt{figures/viewer.png} for the interactive Three.js result.}
+  \includegraphics[width=0.49\linewidth]{figures/recon_3d.png}\hfill
+  \includegraphics[width=0.49\linewidth]{figures/viewer.png}
+  \caption{Reconstruction of a building sketch. Left: the recovered depth
+  surface (near $=$ high). Right: the sketch textured onto that surface,
+  showing the facade lifting into relief. The live, interactive version runs
+  in the browser (\texttt{web/}, Three.js): rotate, zoom, and adjust depth
+  scale in real time.}
   \label{fig:viewer}
 \end{figure}
 
@@ -343,7 +346,7 @@ surface is a single depth layer, so occluded/back faces are not recovered
 We revisited sketch-to-3D reconstruction~\cite{talwar2018sketch} and
 showed that (i) a modern foundation depth model removes the fragile
 CycleGAN step while recovering depth well correlated with real-photo depth
-($r=0.93$), with a targeted cleaning stage that measurably restores fidelity
+($r=0.94$), with a targeted cleaning stage that measurably restores fidelity
 on degraded sketches, and (ii) fusing multiple sketches in \emph{depth
 space} succeeds where the original image-space stitching fails. Our ablation
 also yielded a useful negative result: synthetic shading does not help once
@@ -354,12 +357,11 @@ style step for highly stylized drawings.
 
 % ---------------------------------------------------------------------
 \section*{Individual Contributions}
-\textbf{[[FILL: Member A]]}: [[FILL e.g.\ sketch pre-processing and
-enhancement (\S\ref{sec:pre}), depth-model integration, paired-data
-evaluation and ablation, report.]]\\
-\textbf{[[FILL: Member B]]}: [[FILL e.g.\ multi-sketch depth-space fusion
-(\S\ref{sec:fuse}), interactive Three.js viewer (\S\ref{sec:viewer}),
-data collection, figures and presentation.]]
+\textbf{Wang Qiaopei}: [[FILL: 你负责的部分, e.g.\ sketch pre-processing
+(\S\ref{sec:pre}), depth-model integration, evaluation and ablation.]]\\
+\textbf{Peng Shiqi}: [[FILL: 另一位负责的部分, e.g.\ multi-sketch depth-space
+fusion (\S\ref{sec:fuse}), interactive viewer (\S\ref{sec:viewer}), data
+collection and figures.]]
 
 {\small
 \bibliographystyle{ieeetr}

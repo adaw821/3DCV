@@ -137,7 +137,8 @@ def main():
                                              do_clean=False, do_contrast=False, do_shading=False),
             "degraded_clean": enhance_sketch(cv2.cvtColor(dirty, cv2.COLOR_GRAY2BGR),
                                              do_clean=True, do_contrast=True, do_shading=False),
-            "degraded_full":  enhance_sketch(cv2.cvtColor(dirty, cv2.COLOR_GRAY2BGR)),
+            "degraded_full":  enhance_sketch(cv2.cvtColor(dirty, cv2.COLOR_GRAY2BGR),
+                                             do_clean=True, do_contrast=True, do_shading=True),
         }
 
         for key, _label in SETTINGS:
