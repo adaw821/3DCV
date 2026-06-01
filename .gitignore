@@ -20,6 +20,10 @@ Thumbs.db
 outputs/
 web/assets/
 
+# Presentation render artifacts
+presentation/render/
+presentation/*.pdf
+
 # LaTeX build artifacts
 *.aux
 *.log
