@@ -318,7 +318,25 @@ where ORB feature matching between the raw drawings does not, reproducing
 the base paper's stitching failure and showing our depth-space alternative
 avoids it. The fused depth is smoother and less sensitive to any single
 noisy drawing than the per-sketch estimates.
-% [[FILL: add figures/fusion.png — two input sketches + fused 3D]]
+
+\textbf{Field Lane case study.} To address the original motivating scenario,
+we apply our method to two 19th-century engravings of Field Lane by different
+artists (Fig.~\ref{fig:fieldlane}). Despite differing line styles, the dense
+ECC criterion aligns them successfully and depth-space fusion yields a single
+coherent street: the foreground figures and shopfronts are near, and the
+alley recedes into the distance. This is exactly the case where the base
+paper's feature-correspondence stitching fails, and it lets a viewer
+``walk into'' a reconstructed early-1800s London street in our interactive
+viewer.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/fieldlane.png}
+  \caption{Field Lane case study. Two engravings by different artists (top)
+  are fused in depth space into one coherent street (bottom): a depth map and
+  the reconstructed 3D surface, with the alley correctly receding into depth.}
+  \label{fig:fieldlane}
+\end{figure}
 
 \begin{figure}[t]
   \centering
