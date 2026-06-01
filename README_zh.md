@@ -152,6 +152,13 @@ sketch3d/
 - `outputs/pair_eval.csv`、`ablation.csv`、`degrade.csv` —— 指标表
 - `outputs/ablation_table.tex`、`degrade_table.tex` —— 可直接粘贴的 LaTeX 行
 
+> **注意 —— 这些是生成物，不纳入版本/不用提交。** `outputs/` 和 `web/assets/`
+> 都被 `.gitignore` 排除：跑一次脚本就重新生成，所以**不属于交付物**。评分需要的
+> 结果都已在**报告**里（PDF + `report/figures/`，这个文件夹**有**进仓库）和**演示
+> 视频**里。老师验代码时照上面的命令一跑，这些文件会自动生成。
+> *（可选：若想让老师没 GPU、不下模型也能打开 3D 查看器，把 `web/assets/` 文件夹
+> 跟代码一起附上即可。）*
+
 ---
 
 ## 七、报告
