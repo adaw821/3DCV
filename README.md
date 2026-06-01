@@ -156,12 +156,4 @@ sketch3d/
 - `outputs/pair_eval.csv`, `ablation.csv`, `degrade.csv` — metric tables.
 - `outputs/ablation_table.tex`, `degrade_table.tex` — paste-ready LaTeX rows.
 
-> **Note — these are generated, not committed.** `outputs/` and `web/assets/`
-> are git-ignored: they are regenerated whenever you run the pipeline, so they
-> are **not part of the submission**. All results needed for grading already
-> live in the report (PDF + `report/figures/`, which *is* committed) and in the
-> demo video. To verify the code, a grader just runs the commands above and the
-> files regenerate. *(Optional: if you want the 3D viewer to work without a GPU
-> or model download, include the `web/assets/` folder alongside your code.)*
-
 ---
