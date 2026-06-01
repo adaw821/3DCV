@@ -4,8 +4,6 @@ Reconstruct an explorable 3D scene from one or more hand-drawn **sketches**.
 This project builds on Talwar & Laasri, *"3D Reconstruction from Sketches"*
 (arXiv:2505.14621) and improves it in three ways.
 
-> **中文说明见 [`README_zh.md`](README_zh.md)。**
-
 ---
 
 ## 1. What this project does
@@ -113,7 +111,6 @@ right-drag to pan, and use the sliders for depth scale / detail / wireframe.
 ```
 sketch3d/
 ├── README.md              this file (English)
-├── README_zh.md           中文说明
 ├── requirements.txt       Python dependencies
 │
 ├── src/                   all pipeline code
@@ -160,10 +157,3 @@ sketch3d/
 - `outputs/ablation_table.tex`, `degrade_table.tex` — paste-ready LaTeX rows.
 
 ---
-
-## 7. Report
-
-`report/main.tex` is a CVPR-style write-up; compile it on
-[Overleaf](https://overleaf.com) (upload `main.tex`, `refs.bib`, and `figures/`,
-compiler = pdfLaTeX). See `report/README.md` for the step-by-step and the
-finishing checklist.
